@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Collection estate console</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <h1>Collection estate</h1>
+  <div id="statusline">loading…</div>
+</header>
+
+<main>
+  <section class="panel" id="config-panel">
+    <h2>1 · Configuration</h2>
+    <p class="hint">A version is always a <em>mapping + range pair</em>.
+      Partial updates are refused by the service.</p>
+    <div class="current" id="current-config">—</div>
+    <div class="row">
+      <label>Preset
+        <select id="preset">
+          <option value="v1">v1 — trade sku / label</option>
+          <option value="v2">v2 — catalogue code / title</option>
+        </select>
+      </label>
+      <button id="publish-btn">Create &amp; publish</button>
+      <button id="partial-btn" class="secondary">Try a partial update</button>
+    </div>
+    <pre id="config-result"></pre>
+  </section>
+
+  <section class="panel" id="entries-panel">
+    <h2>2 · Entries</h2>
+    <p class="hint">Each entry is a separate process reading its own source.
+      “Observe” makes every entry re-read the published config live.
+      <span id="mock-state" class="hint"></span></p>
+    <div class="row">
+      <button id="observe-btn">Observe all entries</button>
+      <button id="reconnect-btn" class="secondary">Reconnect all</button>
+    </div>
+    <div id="entries" class="entries"></div>
+  </section>
+
+  <section class="panel" id="task-panel">
+    <h2>3 · Collection task</h2>
+    <div class="row">
+      <label>Gate
+        <select id="gate">
+          <option value="barrier">barrier — all confirm first</option>
+          <option value="prefetch">prefetch — prepare early, publish late</option>
+        </select>
+      </label>
+      <label>Publish
+        <select id="publish-mode">
+          <option value="auto">auto — on all verified</option>
+          <option value="manual">manual — stage, then commit</option>
+        </select>
+      </label>
+      <button id="run-btn">Start task</button>
+    </div>
+    <div id="task"></div>
+  </section>
+
+  <section class="panel" id="evidence-panel">
+    <h2>4 · Evidence</h2>
+    <p class="hint">Every entry's real config read, source bytes and the
+      sink's independent re-read.</p>
+    <div id="evidence"></div>
+    <h3>Events</h3>
+    <ol id="events"></ol>
+  </section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>
